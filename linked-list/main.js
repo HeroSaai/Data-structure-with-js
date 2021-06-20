@@ -74,18 +74,24 @@ class LinkedList {
     return this.printList();
   }
   reverse() {
-    let end = this.length  ;
-      let counter = 0 ;
-      let currentNode = this.head; 
-
-      while(counter <= end-1){
-  this.prepend(currentNode.value);
-  currentNode=currentNode.next;
-  this.remove(counter);
-  ++counter ; 
+      if (!this.head.next) {
+        return this.head;
       }
-    return this.printList();
-  }
+      let first = this.head;
+      this.tail = this.head;
+      let second = first.next;
+  
+      while(second) {
+        const temp = second.next;
+        second.next = first;
+        first = second;
+        second = temp;
+      }
+  
+      this.head.next = null;
+      this.head = first;
+      return this.printList();
+    }
 }
 
 let myLinkedList = new LinkedList(10);
